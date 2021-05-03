@@ -2,13 +2,17 @@
 
 <head>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
 
     <script type="text/javascript">
 
         function fetchCenter() {
-            
+
             const userAction = async () => {
-                
+
                 const pincode = document.querySelector("[id='pincode']").value || "";
                 const date = document.querySelector("[id='date']").value || "";
 
@@ -20,7 +24,7 @@
             }
 
             userAction().then((result) => {
-                
+
                 console.log(result)
                 if (result && result.centers) CreateTableFromJSON(result.centers);
                 else CreateTableFromJSON([]);
@@ -31,7 +35,7 @@
         function CreateTableFromJSON(centers) {
 
 
-            var eighteenAge= true;
+            var eighteenAge = true;
             if (document.getElementById('age1').checked == true) {
                 eighteenAge = true;
             } else {
@@ -49,6 +53,7 @@
             }
             // CREATE DYNAMIC TABLE.
             var table = document.createElement("table");
+            table.classList.add('table');
             // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
             var tr = table.insertRow(-1);                   // TABLE ROW.
             for (var i = 0; i < col.length; i++) {
@@ -61,7 +66,7 @@
                 tr = table.insertRow(-1);
                 for (var j = 0; j < col.length; j++) {
                     var tabCell = tr.insertCell(-1);
-                    
+
 
                     //session based filtering
                     if (col[j] === "sessions") {
@@ -70,7 +75,7 @@
                             centers[i][col[j]] = [];
                             for (var k = 0; k < sessions.length; k++) {
 
-                                if ((eighteenAge && sessions[k].min_age_limit < 45)||(!eighteenAge && sessions[k].min_age_limit >= 45)) {
+                                if ((eighteenAge && sessions[k].min_age_limit < 45) || (!eighteenAge && sessions[k].min_age_limit >= 45)) {
                                     var slotDiv = document.createElement("div");
                                     var slotP = document.createElement("p");
 
@@ -84,7 +89,7 @@
                         if (centers[i][col[j]].length == 0) tabCell.innerHTML = "<span>No slots for 18 years or above</span>";
                         else {
                             centers[i][col[j]].forEach(element => {
-                                
+
                                 tabCell.appendChild(element);
                             });
                         }
@@ -102,9 +107,10 @@
 
     </script>
     <style>
-        table{
+        table {
             margin: auto;
         }
+
         div {
             /* Center the form on the page */
             margin: 0 auto;
@@ -128,13 +134,6 @@
 
         li div {
             text-align: center;
-        }
-
-        label {
-            /* Uniform size & alignment */
-            display: inline-block;
-            width: 90px;
-            text-align: right;
         }
 
         input,
@@ -202,34 +201,52 @@
 
 
 <body id="body">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 
-    <div method="post">
-        <ul>
-            <li>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <div>
+        <h1>Cowin center Vaccine availaibility without OTP</h1>
+    </div>
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item">
                 <label for="name">Pin:</label>
-                <input type="text" id="pincode" name="pincode" placeholder="Enter pin code" />
+                <input type="text" id="pincode" name="pincode" placeholder="Enter pin code" class="form-control" />
             </li>
-            <li>
+            <li class="list-group-item">
                 <label for="mail">Date:</label>
-                <input type="text" id="date" name="date" placeholder="Enter date in dd-mm-yyyy" />
+                <input type="text" id="date" name="date" placeholder="Enter date in dd-mm-yyyy" class="form-control" />
             </li>
-            <li>
+            <li class="list-group-item">
                 <div>
                     <p>Please select your age:</p>
-                    <input type="radio" id="age1" name="age" value="18" checked>
-                    <label for="age1">18 - 45</label><br>
-                    <input type="radio" id="age2" name="age" value="45">
-                    <label for="age2">45+</label><br>
+                    <div>
+                        <label for="age1">18 - 45</label><br>
+                        <input type="radio" id="age1" name="age" value="18" checked class="form-control">
+                    </div>
+                    <div>
+                        <label for="age2">45+</label><br>
+                        <input type="radio" id="age2" name="age" value="45" class="form-control">
+                    </div>
                 </div>
             </li>
-            <li>
+            <li class="list-group-item">
                 <div>
-                    <button id="fetchCenter" onClick="fetchCenter()"> Fetch Center </button>
+                    <button id="fetchCenter" onClick="fetchCenter()" class="btn btn-primary"> Fetch Center </button>
                 </div>
 
             </li>
 
-            <li>
+            <li class="list-group-item">
                 <label for="msg">Center Details:</label>
                 <p id="showData"></p>
             </li>
