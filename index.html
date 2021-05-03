@@ -6,6 +6,8 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
     <script type="text/javascript">
 
@@ -15,7 +17,7 @@
 
                 const pincode = document.querySelector("[id='pincode']").value || "";
                 const date = document.querySelector("[id='date']").value || "";
-
+debugger;
 
                 const response = await fetch(`https://api.cowin.gov.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pincode}&date=${date}`);
                 const myJson = await response.json(); //extract JSON from the http response
@@ -26,7 +28,7 @@
             userAction().then((result) => {
 
                 console.log(result)
-                if(result && result.error) alert("Enter correct and complete data in the form");
+                if (result && result.error) alert("Enter correct and complete data in the form");
                 if (result && result.centers) CreateTableFromJSON(result.centers);
                 else CreateTableFromJSON([]);
             });
@@ -137,10 +139,11 @@
             text-align: center;
         }
 
-label{
-    font-size: 2rem;
-    font-weight: 600;
-}
+        label {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
         input,
         textarea {
             /* To make sure that all text fields have the same font settings
@@ -218,6 +221,28 @@ label{
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
+    <!--  jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                format: 'dd-mm-yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input.datepicker(options);
+        })
+    </script>
     <div>
         <h1>Cowin center Vaccine availaibility without OTP</h1>
     </div>
@@ -229,7 +254,12 @@ label{
             </li>
             <li class="list-group-item">
                 <label for="mail">Date of vaccination:</label>
-                <input type="text" id="date" name="date" placeholder="Enter date in dd-mm-yyyy" class="form-control" />
+                <!-- <input type="text" id="date" name="date" placeholder="Enter date in dd-mm-yyyy" class="form-control" /> -->
+                <div class="form-group">
+                    <!-- Date input -->
+                    <label class="control-label" for="date">Date</label>
+                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
+                </div>
             </li>
             <li class="list-group-item">
                 <div>
