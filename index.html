@@ -26,6 +26,7 @@
             userAction().then((result) => {
 
                 console.log(result)
+                if(result && result.error) alert("Enter correct and complete data in the form");
                 if (result && result.centers) CreateTableFromJSON(result.centers);
                 else CreateTableFromJSON([]);
             });
@@ -136,6 +137,10 @@
             text-align: center;
         }
 
+label{
+    font-size: 2rem;
+    font-weight: 600;
+}
         input,
         textarea {
             /* To make sure that all text fields have the same font settings
@@ -219,16 +224,16 @@
     <div>
         <ul class="list-group">
             <li class="list-group-item">
-                <label for="name">Pin:</label>
+                <label for="name">Pincode:</label>
                 <input type="text" id="pincode" name="pincode" placeholder="Enter pin code" class="form-control" />
             </li>
             <li class="list-group-item">
-                <label for="mail">Date:</label>
+                <label for="mail">Date of vaccination:</label>
                 <input type="text" id="date" name="date" placeholder="Enter date in dd-mm-yyyy" class="form-control" />
             </li>
             <li class="list-group-item">
                 <div>
-                    <p>Please select your age:</p>
+                    <label>Please select your age:</label>
                     <div>
                         <label for="age1">18 - 45</label><br>
                         <input type="radio" id="age1" name="age" value="18" checked class="form-control">
